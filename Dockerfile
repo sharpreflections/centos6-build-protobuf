@@ -13,7 +13,7 @@ ARG isl=isl-0.14.1
 ARG cloog=cloog-0.18.4
 ARG gcc=gcc-4.8.5
 
-ARG install_dir=/opt
+ARG prefix=/opt
 
 WORKDIR /build/
 
@@ -34,7 +34,7 @@ RUN echo "Downloading $gcc:   " && curl --remote-name --progress-bar https://ftp
     echo -n "Extracting $isl..   " && tar xf $isl.tar.xz   && mv $isl   $gcc/isl   && echo " done" && \
     echo -n "Extracting $cloog.. " && tar xf $cloog.tar.gz && mv $cloog $gcc/cloog && echo " done" && \
     mkdir build && cd build && \
-    ../$gcc/configure --prefix=$install_dir/$gcc \
+    ../$gcc/configure --prefix=$prefix/$gcc \
                       --disable-multilib \
                       --enable-languages=c,c++,fortran && \
     make -j $(( $(nproc --all) / 2 )) && \
@@ -42,9 +42,9 @@ RUN echo "Downloading $gcc:   " && curl --remote-name --progress-bar https://ftp
     rm -rf /build/*
 
 FROM base AS production
-COPY --from=build-gcc $install_dir $install_dir
+COPY --from=build-gcc $prefix $prefix
 # it's empty by default
-ENV LD_LIBRARY_PATH=$install_dir/$gcc/bin:
+ENV LD_LIBRARY_PATH=$prefix/$gcc/bin:
 # PSPro build dependencies                                                                                             
 RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-devel libibverbs-devel && \
     # Requirements for using software collections
