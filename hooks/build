@@ -1,0 +1,8 @@
+#!/bin/sh
+docker build --build-arg gmp=gmp-4.3.2   \
+             --build-arg mpfr=mpfr-2.4.2 \
+             --build-arg mpc=mpc-1.0.1   \
+             --build-arg isl=isl-0.14.1  \
+             --build-arg cloog=cloog-0.18.4 \
+             --build-arg gcc=gcc-4.8.5   \
+             -t $IMAGE_NAME .
