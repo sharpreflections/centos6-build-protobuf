@@ -33,7 +33,7 @@ RUN echo "Downloading $gcc:   " && curl --remote-name --progress-bar https://ftp
     echo -n "Extracting $mpc..   " && tar xf $mpc.tar.gz   && mv $mpc   $gcc/mpc   && echo " done" && \
     echo -n "Extracting $isl..   " && tar xf $isl.tar.xz   && mv $isl   $gcc/isl   && echo " done" && \
     echo -n "Extracting $cloog.. " && tar xf $cloog.tar.gz && mv $cloog $gcc/cloog && echo " done" && \
-     mkdir build && cd build && \
+    mkdir build && cd build && \
     ../$gcc/configure --prefix=$install_dir/$gcc \
                       --disable-multilib \
                       --enable-languages=c,c++,fortran && \
