@@ -41,6 +41,20 @@ RUN echo "Downloading $gcc:   " && curl --remote-name --progress-bar https://ftp
     make install && \
     rm -rf /build/*
 
+FROM centos:6 AS build-cmake
+RUN echo "Downloading cmake 3.1.3: " && curl --remote-name --progress-bar https://cmake.org/files/v3.1/cmake-3.1.3-Linux-x86_64.tar.gz && \
+    echo "Downloading cmake 3.5.2: " && curl --remote-name --progress-bar https://cmake.org/files/v3.5/cmake-3.5.2-Linux-x86_64.tar.gz && \
+    echo "Downloading cmake 3.6.3: " && curl --remote-name --progress-bar https://cmake.org/files/v3.6/cmake-3.6.3-Linux-x86_64.tar.gz && \
+    echo "Downloading cmake 3.10.3:" && curl --remote-name --progress-bar https://cmake.org/files/v3.10/cmake-3.10.3-Linux-x86_64.tar.gz && \
+    echo "Downloading cmake 3.14.7:" && curl --remote-name --progress-bar https://cmake.org/files/v3.14/cmake-3.14.7-Linux-x86_64.tar.gz && \
+    cd $prefix && \
+    tar xf cmake-3.1.3-Linux-x86_64.tar.gz && \
+    tar xf cmake-3.5.2-Linux-x86_64.tar.gz && \
+    tar xf cmake-3.6.3-Linux-x86_64.tar.gz && \
+    tar xf cmake-3.10.3-Linux-x86_64.tar.gz && \
+    tar xf cmake-3.14.7-Linux-x86_64.tar.gz && \
+    rm -rf /build/*
+
 FROM base AS production
 COPY --from=build-gcc $prefix $prefix
 # it's empty by default
