@@ -56,7 +56,8 @@ RUN echo "Downloading cmake 3.1.3: " && curl --remote-name --progress-bar https:
     rm -rf /build/*
 
 FROM base AS production
-COPY --from=build-gcc $prefix $prefix
+COPY --from=build-gcc   $prefix $prefix
+COPY --from=build-cmake $prefix $prefix
 # it's empty by default
 ENV LD_LIBRARY_PATH=$prefix/$gcc/bin:
 # PSPro build dependencies                                                                                             
