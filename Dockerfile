@@ -61,11 +61,11 @@ COPY --from=build-cmake $prefix $prefix
 # it's empty by default
 ENV LD_LIBRARY_PATH=$prefix/$gcc/bin:
 # PSPro build dependencies                                                                                             
-RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-devel libibverbs-devel && \
-    # Requirements for using software collections
+RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-devel libibverbs-devel freetype-devel && \
+    # Requirements for using software collections and epel epel-release.noarch
     yum -y install yum-utils centos-release-scl.noarch && \
     # install the software collections
     yum -y install git19 sclo-git25 rh-git29 sclo-git212 sclo-subversion19 && \
     # Misc developer tools
-    yum -y install curl strace valgrind subversion bc && \
+    yum -y install strace valgrind bc joe vim mc && \
     yum clean all
