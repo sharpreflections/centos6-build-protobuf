@@ -9,6 +9,5 @@ CentOS6 based image
   - 3.10.3
   - 3.14.7
 
-- PSPro build dependencies
+- more development tools
 
-- more :-)
