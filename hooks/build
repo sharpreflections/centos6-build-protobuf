@@ -1,10 +1,10 @@
 #!/bin/sh
 # Pass the args as environment variables in docker hub
-docker build --build-arg gmp=$gmp     \
-             --build-arg mpfr=$mpfr   \
-             --build-arg mpc=$mpc     \
-             --build-arg isl=$isl     \
-             --build-arg cloog=$cloog \
-             --build-arg gcc=$gcc     \
-             --build-arg prefix=$prefix \
+docker build --build-arg gmp=$GMP     \
+             --build-arg mpfr=$MPFR   \
+             --build-arg mpc=$MPC     \
+             --build-arg isl=$ISL     \
+             --build-arg cloog=$CLOOG \
+             --build-arg gcc=$GCC     \
+             --build-arg prefix=$PREFIX \
              -t $IMAGE_NAME .
