@@ -1,7 +1,7 @@
 # centos6-build
 CentOS6 based image
 
-- builds GC 4.8.5
+- builds and include GCC 4.8.5
 - includes CMake
   - 3.1.3
   - 3.5.2
