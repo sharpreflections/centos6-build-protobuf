@@ -69,3 +69,4 @@ RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-dev
     # Misc developer tools
     yum -y install strace valgrind bc joe vim mc && \
     yum clean all
+
