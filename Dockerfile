@@ -62,6 +62,8 @@ COPY --from=build-cmake $prefix $prefix
 ENV LD_LIBRARY_PATH=$prefix/$gcc/bin:
 # PSPro build dependencies                                                                                             
 RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-devel libibverbs-devel freetype-devel && \
+    # we need some basic fonts
+    yum -y install urw-fonts && \
     # Requirements for using software collections and epel epel-release.noarch
     yum -y install yum-utils centos-release-scl.noarch && \
     # install the software collections
