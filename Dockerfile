@@ -67,6 +67,6 @@ RUN yum -y install libX11-devel libSM-devel libxml2-devel libGL-devel libGLU-dev
     # install the software collections
     yum -y install git19 sclo-git25 rh-git29 sclo-git212 sclo-subversion19 && \
     # Misc developer tools
-    yum -y install strace valgrind bc joe vim mc && \
+    yum -y install strace valgrind bc joe vim nano mc && \
     yum clean all
 
