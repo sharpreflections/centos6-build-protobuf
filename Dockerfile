@@ -74,10 +74,15 @@ RUN echo "Downloading cmake 3.1.3: " && curl --remote-name --progress-bar https:
     rm -rf /build/*
 
 
-FROM base AS build-qt5
+FROM base AS build-qt5-gcc
 COPY --from=build-gcc   $prefix $prefix
 COPY --from=build-cmake $prefix $prefix
-RUN yum -y install xz glibc-headers glibc-devel && yum clean all && \
+RUN # Using ENV on docker hub seems to be not working
+    export PATH=$prefix/$gcc/bin:$PATH && \
+    export LD_LIBRARY_PATH=$prefix/$gcc/lib64:$LD_LIBRARY_PATH && \
+    export CC=gcc && \
+    export CXX=g++ && \
+    yum -y install xz glibc-headers glibc-devel && yum clean all && \
     echo "Downlooading qt5: " && \
     curl --remote-name --location --progress-bar http://download.qt.io/official_releases/qt/5.9/5.9.8/single/qt-everywhere-opensource-src-5.9.8.tar.xz && \
     curl --remote-name --location --silent http://download.qt.io/official_releases/qt/5.9/5.9.8/single/md5sums.txt && \
@@ -88,7 +93,7 @@ RUN yum -y install xz glibc-headers glibc-devel && yum clean all && \
     sed --in-place "s:\(QMAKE_LFLAGS.*-m64\).*:\1 -Wl,-rpath,\\\'\\\\$\$ORIGIN\\\',--disable-new-dtags:" qtbase/mkspecs/linux-g++-64/qmake.conf && \
     sed --in-place 's/\(QMAKE_LFLAGS .*=\)/\1 -static-intel -Wl,--disable-new-dtags/' qtbase/mkspecs/linux-icc/qmake.conf && \
     sed --in-place "s/\(QMAKE_LFLAGS_SHLIB .*= -shared\).*/\1 -Wl,-rpath,\\\'\\\\$\$ORIGIN\\\'/" qtbase/mkspecs/linux-icc/qmake.conf && \
-    ./configure --prefix=/opt/qt-5.9.8 \
+    ./configure --prefix=/opt/qt-5.9.8-gcc \
                 -opensource -confirm-license \
                 -shared                      \
                 -platform linux-icc-64       \
