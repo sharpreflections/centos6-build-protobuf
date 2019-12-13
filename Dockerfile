@@ -97,7 +97,7 @@ RUN yum -y install xz glibc-headers glibc-devel && yum clean all && \
     ./configure --prefix=/opt/qt-5.9.8-gcc   \
                 -opensource -confirm-license \
                 -shared                      \
-                -platform linux-gcc-64       \
+                -platform linux-g++-64       \
                 -qt-zlib                     \
                 -qt-libjpeg                  \
                 -qt-libpng                   \
