@@ -113,10 +113,26 @@ RUN echo "Downloading cmake 3.1.3: " && curl --remote-name --progress-bar https:
 #    [ -f "qtbase/src/corelib/QtCore.version" ] && rm qtbase/src/corelib/QtCore.version && \
 #    gmake -j $(nprocs) && gmake install
 
+FROM build-base AS build-protobuf
+RUN echo "Downloading protobuf 3.0.2:" && curl --progress-bar https://codeload.github.com/protocolbuffers/protobuf/tar.gz/v3.0.2 --output protobuf-3.0.2.tar.gz && \
+    echo "Downloading protobuf 3.5.2:" && curl --progress-bar https://codeload.github.com/protocolbuffers/protobuf/tar.gz/v3.5.2 --output protobuf-3.5.2.tar.gz && \
+    for file in *; do echo -n "Extracting $file: " && tar -xf $file && echo "done"; done && \
+    cd protobuf-3.0.2 && \
+    ./autogen.sh && \
+    ./configure --prefix=$prefix/protobuf-3.0 && \
+    make --jobs=$(nproc --all) && make install && \
+    cd .. && \
+    cd protobuf-3.5.2 && \
+    ./autogen.sh && \
+    ./configure --prefix=/opt/protobuf-3.5 && \
+    make --jobs=$(nproc --all) && make install && \
+    rm -rf /build/*
 
 FROM build AS production
-COPY --from=build-gcc   $prefix $prefix
-COPY --from=build-cmake $prefix $prefix
+COPY --from=build-gcc      $prefix $prefix
+COPY --from=build-cmake    $prefix $prefix
+COPY --from=build-protobuf $prefix $prefix
+
 # it's empty by default
 ENV LD_LIBRARY_PATH=$prefix/$gcc/bin:
 # PSPro build dependencies                                                                                             
