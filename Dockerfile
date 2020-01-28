@@ -113,7 +113,7 @@ RUN echo "Downloading cmake 3.1.3: " && curl --remote-name --progress-bar https:
 #    [ -f "qtbase/src/corelib/QtCore.version" ] && rm qtbase/src/corelib/QtCore.version && \
 #    gmake -j $(nprocs) && gmake install
 
-FROM build-base AS build-protobuf
+FROM build AS build-protobuf
 RUN echo "Downloading protobuf 3.0.2:" && curl --progress-bar https://codeload.github.com/protocolbuffers/protobuf/tar.gz/v3.0.2 --output protobuf-3.0.2.tar.gz && \
     echo "Downloading protobuf 3.5.2:" && curl --progress-bar https://codeload.github.com/protocolbuffers/protobuf/tar.gz/v3.5.2 --output protobuf-3.5.2.tar.gz && \
     for file in *; do echo -n "Extracting $file: " && tar -xf $file && echo "done"; done && \
