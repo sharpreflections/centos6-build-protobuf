@@ -6,7 +6,7 @@ ARG mpfr=mpfr-2.4.2
 ARG mpc=mpc-1.0.1
 ARG isl=isl-0.14.1
 ARG cloog=cloog-0.18.4
-ARG gcc=gcc-4.8.5
+ARG gcc=gcc-5.5.0
 
 ARG prefix=/opt
 
