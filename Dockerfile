@@ -1,4 +1,4 @@
-FROM sharpreflections/centos6-build-binutils
+FROM quay.io/sharpreflections/centos6-build-binutils
 LABEL maintainer="dennis.brendel@sharpreflections.com"
 
 ARG prefix=/opt
